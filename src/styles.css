@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+
+/*
+  Nexxora Web.
+
+  Orange #e8621a is the page background, everywhere. Deep green #0a2416 is the
+  ink. Cream #fff4e4 is paper: any paragraph that runs longer than a couple of
+  lines sits on cream, because green on orange is a large-type colour pair
+  (~3.4:1) and green on cream is a reading colour pair (~9:1).
+*/
+@theme static {
+  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+  --font-display: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+  --font-latin: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Field */
+  --color-flame: #e8621a;
+  --color-flame-light: #f1782f;
+  --color-flame-deep: #b94a0b;
+
+  /* Ink */
+  --color-fern: #0a2416;
+  --color-fern-2: #14432a;
+  --color-fern-3: #1f5a39;
+
+  /* Paper */
+  --color-cream: #fff4e4;
+  --color-cream-2: #f7e3c8;
+  --color-honey: #ffc06a;
+
+  --radius-card: 20px;
+  --radius-panel: 28px;
+
+  --shadow-sticker: 8px 8px 0 var(--color-fern);
+  --shadow-sticker-sm: 4px 4px 0 var(--color-fern);
+  --shadow-sticker-cream: 8px 8px 0 var(--color-cream);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(-1.5deg);
+    }
+  }
+}
+
+@layer base {
+  html {
+    background-color: var(--color-flame);
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-flame);
+    color: var(--color-fern);
+    font-family: var(--font-sans);
+    font-feature-settings: 'palt' 1;
+    /* Break Japanese between phrases rather than between any two characters.
+       Ignored by browsers that don't know the value, which is harmless. */
+    word-break: auto-phrase;
+    line-break: strict;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-fern);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-fern);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* A very light dot grid, so the orange field has some texture instead of
+   being a flat slab. */
+@utility dotted {
+  background-image: radial-gradient(rgb(10 36 22 / 0.18) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Vertical pinstripes for section dividers and card backs. */
+@utility pinstripe {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgb(10 36 22 / 0.16) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+@utility latin {
+  font-family: var(--font-latin);
+  letter-spacing: -0.02em;
+}
